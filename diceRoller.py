@@ -2,4 +2,4 @@
 import random
 
 def rollDice():
-    return random.randint(2,12)
+    return random.randint(2, 12)

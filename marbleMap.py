@@ -50,13 +50,57 @@ age = 30
 message = "Hello, my name is %s and I am %d years old." % (name, age)
 print(message)
 이 세 가지 방법 중에서 f-strings가 가장 최신의 방법이며, 가독성이 좋고 사용하기 편리합니다. 필요에 따라 적절한 방법을 선택하여 사용하시면 됩니다.
+
++-----------------++-----------------++-----------------+
+| 하와이   <1>    |  | 하와이   <1>    | | 하와이   <1>    |
+| 28만원 ★■▲   | | 28만원 ★■▲   | | 28만원 ★■▲   |
+| [2] [3]  (20만원) | | [2] [3]  (20만원) | | [2] [3]  (20만원) |
++-----------------++-----------------++-----------------+
+| 하와이   <1>    |                         | 하와이   <1>    |
+| 28만원 ★■▲   |                         | 28만원 ★■▲   |
+| [2] [3]  (20만원) |                         | [2] [3]  (20만원) |
++-----------------++-----------------++-----------------+
+| 하와이   <1>    |  | 하와이   <1>    | | 하와이   <1>    |
+| 28만원 ★■▲   | | 28만원 ★■▲   | | 28만원 ★■▲   |
+| [2] [3]  (20만원) | | [2] [3]  (20만원) | | [2] [3]  (20만원) |
++-----------------++-----------------++-----------------+
+
+
 """
+
+mapInfo = [
+    {'areaName' : 'a1', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a2', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a3', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a4', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a5', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a6', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a7', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a8', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a9', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a10', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a11', 'visitedPlayer' : [], 'areaOwner' : 'none'},
+    {'areaName' : 'a12', 'visitedPlayer' : [], 'areaOwner' : 'none'}
+]
 
 class gameMap():
     currentMap = ""
+    currentMapInfo = ""
     
-    def __init__(self):
+    def __init__(self, totalPlayerNumber):
         self.currentMap = map
+        self.currentMapInfo = mapInfo
+        
+        for i in range(int(totalPlayerNumber)):
+            self.currentMapInfo[0]['visitedPlayer'].append(i)
 
     def printMap(self):
         print(self.currentMap)
+        
+    def loadMap(self):
+        return self.currentMapInfo
+    
+    def setVisitedPlayer(self, previousPlayerLocation, currentPlayerLocation, playerNumber):
+        self.currentMapInfo[previousPlayerLocation]['visitedPlayer'].remove(playerNumber)
+        self.currentMapInfo[currentPlayerLocation]['visitedPlayer'].append(playerNumber)
+        

@@ -6,34 +6,44 @@ from marbleMap import gameMap
 
 
 print("======== 당직 - 마블 ========")
-playerNumber = input("플레이어 수를 입력하세요. (1~4) : ")
+totalPlayerNumber = input("플레이어 수를 입력하세요. (1~4) : ")
 
-
+playerList = []
 isGameStarted = True
-
-gameMap = gameMap()
-
-playerDice = rollDice()
-
-cnt = 0
-
-while (isGameStarted):
-    while (playerDice != 0):
-        gameMap.printMap()
-        playerDice = 0
-        cnt = cnt + 1
-        print(cnt)
-        
-    ham = input("굴려~")
-    if (ham == ""):
-        playerDice = rollDice()
-        print("dice : ", playerDice)
+gameMap = gameMap(totalPlayerNumber)
 
 # 플레이어 초기화
-p1 = Player()
-p1.setNumber(1)
-print(p1.playerNumber)
-p1.printNumber()
+for i in range(int(totalPlayerNumber)):
+    player = Player()
+    player.setPlayerNumber(i)
+    playerList.append(player)
 
 # 게임 진행
 
+mapInfo = gameMap.loadMap()
+print(mapInfo[1])
+
+#test case
+# for i in range(5):
+#     diceAmount = rollDice()
+#     print(diceAmount)
+#     playerList[0].setPlayerLocation(diceAmount)
+
+# print(playerList[0].getPlayerLocation())
+# money = playerList[0].getTotalIncome()
+# print(money)
+
+testinput = input("주사위를 굴려주세요. (ENTER)")
+
+
+if testinput == "":
+    
+    currentLocation = playerList[0].getPlayerLocation()
+    
+    myDice = rollDice()
+    playerList[0].setPlayerLocation(myDice)
+    diceResultMessage = f"{myDice} 이 나왔습니다."
+    print(diceResultMessage)
+
+    gameMap.setVisitedPlayer(currentLocation, playerList[0].getPlayerLocation(), 0)
+    print(mapInfo)
